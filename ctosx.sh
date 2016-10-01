@@ -78,11 +78,11 @@ function ctngconfig() {
 		git pull origin master || true
 	fi
 
-	if [ ! -e "configure" ]; then
-		./bootstrap
-	fi
 	if [ "$1" = "re" ]; then
 		make clean || true
+		./bootstrap
+	fi
+	if [ ! -e "configure" ]; then
 		./bootstrap
 	fi
 	
