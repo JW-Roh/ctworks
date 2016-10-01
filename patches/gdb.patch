@@ -1,0 +1,20 @@
+--- a/libiberty/config.in	2016-02-10 12:19:38.000000000 +0900
++++ b/libiberty/config.in	2016-10-02 00:46:48.000000000 +0900
+@@ -111,7 +111,7 @@
+ #undef HAVE_DUP3
+ 
+ /* Define to 1 if you have the <fcntl.h> header file. */
+-#undef HAVE_FCNTL_H
++#define HAVE_FCNTL_H 1
+ 
+ /* Define to 1 if you have the `ffs' function. */
+ #undef HAVE_FFS
+@@ -150,7 +150,7 @@
+ #undef HAVE_INTTYPES_H
+ 
+ /* Define to 1 if you have the <limits.h> header file. */
+-#undef HAVE_LIMITS_H
++#define HAVE_LIMITS_H 1
+ 
+ /* Define if you have the `long long' type. */
+ #undef HAVE_LONG_LONG

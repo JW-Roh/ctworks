@@ -69,7 +69,7 @@ function ctngconfig() {
 
 	cd "${ctng_dir}"
 	
-	if [ -e "ct-ng" ]; then
+	if [ -e "ct-ng" ] && [ -z "$1" ]; then
 		echo " > crosstool-ng already configured."
 		return
 	fi
@@ -81,6 +81,21 @@ function ctngconfig() {
 	if [ ! -e "configure" ]; then
 		./bootstrap
 	fi
+	if [ "$1" = "re" ]; then
+		make clean || true
+		./bootstrap
+	fi
+	
+	sed -i 's/gcc -static/gcc -Bstatic/g' configure
+	sed -i 's/ -static / -Bstatic /g' scripts/crosstool-NG.sh.in
+	for file in patches/gdb/*/100-*.patch
+	do
+		already_patch=`grep "config.in" ${file}`
+		if [ -z "${already_patch}" ]; then
+			cat "${CTCWD}/patches/gdb.patch" >> "${file}"
+		fi
+	done
+	
 	./configure --enable-local
 	make
 	
@@ -189,6 +204,10 @@ elif [ "$1" = "attach" ]; then
 elif [ "$1" = "configure" ]; then
 	
 	ctngconfig
+	
+elif [ "$1" = "reconfigure" ]; then
+	
+	ctngconfig re
 	
 elif [ "$1" = "menuconfig" ]; then
 	
