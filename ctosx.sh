@@ -86,11 +86,11 @@ function ctngconfig() {
 		./bootstrap
 	fi
 	
-	sed -i 's/gcc -static/gcc -Bstatic/g' configure
-	sed -i 's/ -static / -Bstatic /g' scripts/crosstool-NG.sh.in
+	sed -i 's/gcc -static/gcc -Bstatic/g' configure || true
+	sed -i 's/ -static / -Bstatic /g' scripts/crosstool-NG.sh.in || true
 	for file in patches/gdb/*/100-*.patch
 	do
-		already_patch=`grep "config.in" ${file}`
+		already_patch=`grep "config.in" ${file}` || true
 		if [ -z "${already_patch}" ]; then
 			cat "${CTCWD}/patches/gdb.patch" >> "${file}"
 		fi
